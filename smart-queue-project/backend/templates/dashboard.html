@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QueueAI Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body data-page="{{ page_name }}">
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <span class="brand-mark">Q</span>
+                    <div>
+                        <h2>QueueAI</h2>
+                        <p>Smart queue</p>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a class="sidebar-link active" href="/">Home</a>
+                    <a class="sidebar-link" href="/place">Places</a>
+                    <a class="sidebar-link" href="/queue">Queue</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-foot">
+                <span class="mini-label">Sync</span>
+                <strong>Location explorer</strong>
+            </div>
+        </aside>
+
+        <div class="main-shell">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="app-name">QueueAI</div>
+                </div>
+
+                <nav class="top-nav" aria-label="Main navigation">
+                    <a href="/" class="top-nav-link active">Home</a>
+                    <a href="#" class="top-nav-link">About</a>
+                    <a href="#" class="top-nav-link">History</a>
+                    <a href="#" class="top-nav-link">Account</a>
+                </nav>
+
+                <div class="topbar-right">
+                    <div class="search-shell">
+                        <input id="navSearch" class="nav-search" type="search" placeholder="Search location">
+                    </div>
+                    <div class="account-chip">
+                        <div class="avatar">A</div>
+                        <div>
+                            <strong>Admin</strong>
+                            <span>Queue desk</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <section class="map-grid">
+                    <article class="panel map-panel">
+                        <div class="panel-header">
+                            <div>
+                                <p class="panel-tag">Locations</p>
+                                <h2>System map</h2>
+                            </div>
+                            <span class="panel-badge">Multi-site</span>
+                        </div>
+                        <div id="map" class="map-canvas"></div>
+                        <p id="mapFallback" class="map-fallback">Map loading...</p>
+                    </article>
+
+                    <article class="panel location-panel">
+                        <div class="panel-header">
+                            <div>
+                                <p class="panel-tag">Selected place</p>
+                                <h2>Location details</h2>
+                            </div>
+                        </div>
+                        <div class="location-card">
+                            <strong id="locationName">Select a marker</strong>
+                            <span id="locationSystem">System status: --</span>
+                        </div>
+                        <div class="queue-box">
+                            <p class="queue-title">Queues</p>
+                            <div id="locationQueues" class="queue-list">
+                                <span class="queue-pill">No location selected</span>
+                            </div>
+                        </div>
+                        <a id="openPlaceLink" class="primary-link" href="/place">Open place</a>
+                    </article>
+                </section>
+
+                <section class="panel recent-panel">
+                    <div class="panel-header">
+                        <div>
+                            <p class="panel-tag">Activity</p>
+                            <h2>Recently viewed</h2>
+                        </div>
+                    </div>
+                    <div id="recentlyViewed" class="recent-list">
+                        <p class="empty-state">No recent pages yet.</p>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="site-footer">
+                <p>QueueAI</p>
+                <p>Home | About | History | Account</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        window.GOOGLE_MAPS_API_KEY = "{{ google_maps_api_key }}";
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% if google_maps_api_key %}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmJs8kREdkjT-D7-upeb1mZauX6ZXoFKw&callback=initQueueMap">
+        </script>
+    {% endif %}
+</body>
+
+</html>

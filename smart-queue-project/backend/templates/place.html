@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QueueAI Place</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body data-page="{{ page_name }}" data-location="{{ location.name }}">
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <span class="brand-mark">Q</span>
+                    <div>
+                        <h2>QueueAI</h2>
+                        <p>Smart queue</p>
+                    </div>
+                </div>
+                <nav class="sidebar-nav">
+                    <a class="sidebar-link" href="/">Home</a>
+                    <a class="sidebar-link active" href="/place?location={{ location.name }}">Places</a>
+                    <a class="sidebar-link" href="/queue">Queue</a>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="main-shell">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="app-name">QueueAI</div>
+                </div>
+                <nav class="top-nav" aria-label="Main navigation">
+                    <a href="/" class="top-nav-link">Home</a>
+                    <a href="#" class="top-nav-link">About</a>
+                    <a href="#" class="top-nav-link">History</a>
+                    <a href="#" class="top-nav-link">Account</a>
+                </nav>
+                <div class="topbar-right">
+                    <div class="search-shell">
+                        <input id="navSearch" class="nav-search" type="search" placeholder="Search block">
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <section class="page-hero panel">
+                    <p class="panel-tag">Place</p>
+                    <h1>{{ location.name }}</h1>
+                    <p class="hero-copy">Pick a block to view queue details.</p>
+                </section>
+
+                <section id="blockGrid" class="block-grid">
+                    {% for queue in location.queues %}
+                    <a class="block-card" href="/queue?location={{ location.name }}&block={{ queue }}" data-name="{{ queue }}">
+                        <span class="block-label">Block</span>
+                        <strong>{{ queue }}</strong>
+                    </a>
+                    {% endfor %}
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

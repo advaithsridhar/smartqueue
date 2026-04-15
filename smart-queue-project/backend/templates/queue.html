@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QueueAI Queue</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body data-page="{{ page_name }}" data-location="{{ location_name }}" data-block="{{ block }}">
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <span class="brand-mark">Q</span>
+                    <div>
+                        <h2>QueueAI</h2>
+                        <p>Smart queue</p>
+                    </div>
+                </div>
+                <nav class="sidebar-nav">
+                    <a class="sidebar-link" href="/">Home</a>
+                    <a class="sidebar-link" href="/place?location={{ location_name }}">Places</a>
+                    <a class="sidebar-link active" href="/queue?location={{ location_name }}&block={{ block }}">Queue</a>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="main-shell">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="app-name">QueueAI</div>
+                </div>
+                <nav class="top-nav" aria-label="Main navigation">
+                    <a href="/" class="top-nav-link">Home</a>
+                    <a href="#" class="top-nav-link">About</a>
+                    <a href="#" class="top-nav-link">History</a>
+                    <a href="#" class="top-nav-link">Account</a>
+                </nav>
+                <div class="topbar-right">
+                    <div class="search-shell">
+                        <input id="navSearch" class="nav-search" type="search" placeholder="Search queue">
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <section class="page-hero panel queue-hero">
+                    <p class="panel-tag">Queue</p>
+                    <h1 id="queueTitle">{{ location_name }} - {{ block }}</h1>
+                    <p id="queueSubtitle" class="hero-copy">{{ location_name }}</p>
+                </section>
+
+                <section class="queue-stats">
+                    <article class="stat-card queue-stat-card">
+                        <div class="stat-head">
+                            <span>Crowd</span>
+                            <div class="stat-icon blue">C</div>
+                        </div>
+                        <div class="queue-stat-body">
+                            <p id="crowd" class="stat-value">--</p>
+                            <small id="queueLocationLabel">{{ location_name }}</small>
+                        </div>
+                    </article>
+
+                    <article class="stat-card queue-stat-card">
+                        <div class="stat-head">
+                            <span>Wait time</span>
+                            <div class="stat-icon amber">W</div>
+                        </div>
+                        <div class="queue-stat-body">
+                            <p id="wait" class="stat-value">--</p>
+                            <small id="queueBlockLabel">{{ block }}</small>
+                        </div>
+                    </article>
+
+                    <article class="stat-card queue-stat-card">
+                        <div class="stat-head">
+                            <span>Crowd level</span>
+                            <div class="stat-icon blue">L</div>
+                        </div>
+                        <div class="queue-stat-body">
+                            <p id="crowdLevel" class="stat-value">--</p>
+                            <small>Live level</small>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="panel queue-chart-panel">
+                    <div class="panel-header">
+                        <div>
+                            <p class="panel-tag">History</p>
+                            <h2>Queue trend</h2>
+                        </div>
+                    </div>
+                    <canvas id="queueChart"></canvas>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
